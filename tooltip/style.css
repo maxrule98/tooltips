@@ -1,0 +1,128 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+}
+
+.tooltip {
+  --tooltip-size: 25px;
+  --tooltip-padding: 10px; /* Currently unused (can swap padding variable on .tooltip__target if you want a smaller triangle) */
+  --triangle-size: 10px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip__target {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tooltip-size);
+  min-width: var(--tooltip-size);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--triangle-size);
+}
+
+.tooltip__target:hover svg path {
+  fill: rgb(0, 94, 255);
+}
+
+.tooltip__target:hover + .tooltip__msg {
+  --scale: 1;
+
+  transform: scale(var(--scale));
+}
+
+.tooltip__msg:hover {
+  --scale: 1;
+
+  transform: scale(var(--scale));
+}
+
+.tooltip__msg {
+  --scale: 0;
+
+  position: absolute;
+  transform: scale(var(--scale));
+  padding: 5px 20px;
+  width: max-content;
+  max-width: 300px;
+  color: white;
+  background: #333;
+  transition: 175ms transform ease-in-out;
+  opacity: 0.9;
+}
+
+.tooltip__msg::before {
+  content: "";
+  color: #333;
+  position: absolute;
+}
+
+.tooltip__msg[data-position="top"] {
+  bottom: 100%;
+  transform-origin: bottom center;
+}
+.tooltip__msg[data-position="top"]::before {
+  top: 100%;
+  left: calc(50% - var(--triangle-size));
+  border-top: var(--triangle-size) solid #333;
+  border-right: var(--triangle-size) solid transparent;
+  border-left: var(--triangle-size) solid transparent;
+}
+
+.tooltip__msg[data-position="right"] {
+  left: 100%;
+  transform-origin: left center;
+}
+.tooltip__msg[data-position="right"]::before {
+  top: calc(50% - var(--triangle-size));
+  right: 100%;
+  border-top: var(--triangle-size) solid transparent;
+  border-right: var(--triangle-size) solid #333;
+  border-bottom: var(--triangle-size) solid transparent;
+}
+
+.tooltip__msg[data-position="bottom"] {
+  top: 100%;
+  transform-origin: top center;
+}
+.tooltip__msg[data-position="bottom"]::before {
+  bottom: 100%;
+  left: calc(50% - var(--triangle-size));
+  border-right: var(--triangle-size) solid transparent;
+  border-bottom: var(--triangle-size) solid #333;
+  border-left: var(--triangle-size) solid transparent;
+}
+
+.tooltip__msg[data-position="left"] {
+  right: 100%;
+  transform-origin: right center;
+}
+.tooltip__msg[data-position="left"]::before {
+  top: calc(50% - var(--triangle-size));
+  left: 100%;
+  border-top: var(--triangle-size) solid transparent;
+  border-left: var(--triangle-size) solid #333;
+  border-bottom: var(--triangle-size) solid transparent;
+}
